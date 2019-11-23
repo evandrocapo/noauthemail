@@ -1,24 +1,19 @@
 var express = require('express');
-var nodemailer = require('nodemailer');
 const sendmail = require('sendmail')();
+const sendgrid = require('@sendgrid/mail');
 var app = express();
-
-// const transporter = nodemailer.createTransport({
-//     type: 'smtp',
-
-// })
 
 app.get('/', function (req, res) {
     res.send('Hello World!');
 });
 
-app.get('/email', async function (req, res) { // error
+app.get('/email-sendmail', async function (req, res) { // error
     try {
         await sendmail({
-            from: 'evandrocapovillajr@gmail.com',
-            to: 'vandinhocapovilla@gmail.com',
-            subject: 'test sendmail',
-            html: 'Mail of test sendmail ',
+            from: 'test@test.com',
+            to: 'test2@test.com',
+            subject: 'Titulo do email',
+            html: 'Mensagem do email',
           }, function(err, reply) {
             console.log(err && err.stack);
             console.dir(reply);
@@ -29,6 +24,18 @@ app.get('/email', async function (req, res) { // error
         res.status(400).send('Email não enviado ! Erro interno');
     }
 });
+
+app.get('/email-sendgrid', async function (req,res){
+    const msg = {
+        to: 'test@test.com',
+        from: 'test2@test.com',
+        subject: 'Titulo do email',
+        text: 'Mensagem do email',
+        html: '<strong>Tambem é possivel enviar um html da mensagem</strong>',
+    }
+
+    sendgrid.send(msg);
+})
 
 app.listen(3000, function () {
     console.log('Example app listening on port 3000!');
