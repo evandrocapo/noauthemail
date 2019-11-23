@@ -18,8 +18,9 @@
   },
   "homepage": "https://github.com/evandrocapo/noauthemail#readme",
   "dependencies": {
+    "@sendgrid/mail": "^6.4.0",
     "express": "^4.17.1",
-    "nodemailer": "^6.3.1",
+    "sendgrid": "^5.2.3",
     "sendmail": "^1.6.1"
   }
 }
